@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-5 text-center">
+        <h1>{{ title }}</h1>
+        <div class="list-group">
+            {% for customer in customers %}
+                <div class="list-group-item">
+                    <h5 class="mb-1">{{ customer.first_name }} {{ customer.last_name }}</h5>
+                    <p class="mb-1">{{ customer.company_name }}</p>
+                    <small>{{ customer.email }}</small><br>
+                    <small>{{ customer.phone }}</small><br>
+                    <small>{{ customer.mobile }}</small>
+                </div>
+            {% endfor %}
+        </div>
+        <a href="{% url 'customers:add_new' %}" class="btn btn-primary m-1">Neuer Kunde</a>
+        <a href="{% url 'homepage:index' %}" class="btn btn-primary m-1">Zurück</a>
+    </div>
+{% endblock %}

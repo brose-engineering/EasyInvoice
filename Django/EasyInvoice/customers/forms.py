@@ -1,7 +1,9 @@
+# forms.py
+
 from django import forms
 from .models import Customer
 
 class CustomerForm(forms.ModelForm):
     class Meta:
         model = Customer
-        fields = []
+        fields = ['first_name', 'last_name', 'company_name', 'address', 'email', 'phone', 'mobile']

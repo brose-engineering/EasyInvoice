@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-5 text-center">
+        <h1>{{ title }}</h1>
+        <div>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Speichern</button>
+            </form>
+        </div>
+        <a href="{% url 'customers:index' %}" class="btn btn-primary m-1">Zurück</a>
+    </div>
+{% endblock %}
