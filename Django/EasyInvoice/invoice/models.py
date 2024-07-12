@@ -60,4 +60,5 @@ class Invoice(models.Model):
     This attribute provides a short summary or description of the product(s) 
     being invoiced. The maximum length is 256 characters, suitable for short descriptions.
     """
-
+    def __str__(self):
+        return f'Rechnung {self.invoice_id} vom {self.date} für Kunde {self.customer.first_name} {self.customer.last_name}'
