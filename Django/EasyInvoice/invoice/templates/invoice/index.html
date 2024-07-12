@@ -5,20 +5,10 @@
 {% block body %}
     <div class="container mt-5 text-center">
         <h1>{{ title }}</h1>
-        <div class="list-group">
-            {% for invoice in invoices %}
-                <div class="list-group-item">
-                    <h5 class="mb-1">{{ invoice.invoice_id }}</h5>
-                    <p class="mb-1">{{ customer.customer_id }}</p>
-                    <p class="mb-1">{{ customer.company_name }}</p>
-                    <small>{{ customer.email }}</small><br>
-                    <small>{{ customer.phone }}</small><br>
-                    <small>{{ customer.mobile }}</small><br>
-                    <p><a href="{% url 'customers:edit' customer.customer_id %}">Bearbeiten</a></p>
-                </div>
-            {% endfor %}
-        </div>
-        <a href="{% url 'customers:add_new' %}" class="btn btn-primary m-1">Neuer Kunde</a>
+        {% for invoice in invoices %}
+        {% endfor %}
+
+        <a href="{% url 'invoice:new' %}" class="btn btn-primary m-1">Neue Rechnung</a>
         <a href="{% url 'homepage:index' %}" class="btn btn-primary m-1">Zurück</a>
     </div>
 {% endblock %}
