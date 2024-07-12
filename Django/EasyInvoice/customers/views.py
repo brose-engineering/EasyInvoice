@@ -12,6 +12,18 @@ def index(request):
             "customers": Customer.objects.all()
         })
 
+# new function that outputs a fibonacci
+def fibonacci(n):
+    a = 0
+    b = 1
+    for i in range(n-1):
+        c = a + b
+        a = b
+        b = c
+    return b
+
+
+
 
 def edit(request, customer_id):
     customer = get_object_or_404(Customer, customer_id = customer_id)
