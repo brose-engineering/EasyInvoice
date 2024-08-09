@@ -12,7 +12,8 @@
                 <button type="submit" class="btn btn-primary">Speichern</button>
             </form>
         </div>
-        <a href="{% url 'customers:delete' customer.customer_id %}" class="btn btn-danger m-1">Löschen</a>
+        <!--On Button click, open a popup asking for confirmation, then follow the link:-->
+        <a href="{% url 'customers:delete' customer.customer_id %}" class="btn btn-danger m-1" onclick="return confirm('Kunde löschen?')">Löschen</a>
         <a href="{% url 'customers:index' %}" class="btn btn-primary m-1">Zurück</a>
     </div>
 {% endblock %}

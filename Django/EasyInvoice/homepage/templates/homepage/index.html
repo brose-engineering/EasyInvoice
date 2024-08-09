@@ -5,6 +5,8 @@
 {% block body %}
     <div class="container mt-5 text-center">
         <h1>{{ title }}</h1>
+        <h2>{{ subtitle }}</h2>
+        <br>
         <a href="{% url 'invoice:index' %}" class="btn btn-primary m-1">Rechnungen</a>
         <a href="{% url 'customers:index' %}" class="btn btn-primary m-1">Kunden</a>
     </div>
