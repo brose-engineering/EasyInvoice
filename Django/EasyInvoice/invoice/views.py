@@ -12,6 +12,7 @@ def index(request):
         return render(request,'invoice/index.html',{
             "title": "Easy Invoice - Rechnungen",
             "invoices": Invoice.objects.all()
+            # "invoices": Invoice.objects.all()
         })
     
 def new(request):
@@ -19,10 +20,11 @@ def new(request):
         form = newInvoiceForm(request.POST)
         if form.is_valid():
             form.save()
+
             return HttpResponseRedirect('/invoice/')
     else:
         form = newInvoiceForm()
-    return render(request,'invoice/new.html',{
-        "title": "Easy Invoice - Neue Rechnung",
-        "form": form,
-    })
+        return render(request,'invoice/new.html',{
+            "title": "Easy Invoice - Neue Rechnung",
+            "form": form,
+        })
