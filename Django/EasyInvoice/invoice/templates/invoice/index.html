@@ -8,7 +8,6 @@
         {% for invoice in invoices %}
         <div class="list-group-item">
             <h5 class="mb-1">{{ invoice }}<h5>
-            <p><a href="{% url 'customers:edit' customer.customer_id %}">Bearbeiten</a></p>
         </div>
         {% endfor %}
 

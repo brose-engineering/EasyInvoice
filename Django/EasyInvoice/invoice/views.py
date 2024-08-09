@@ -1,6 +1,8 @@
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
-from invoice.models import Invoice
+from .models import Invoice
+from .forms import newInvoiceForm
+
 
 # Create your views here.
 def index(request):
@@ -13,4 +15,14 @@ def index(request):
         })
     
 def new(request):
-    pass
+    if request.method == "POST":
+        form = newInvoiceForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/invoice/')
+    else:
+        form = newInvoiceForm()
+    return render(request,'invoice/new.html',{
+        "title": "Easy Invoice - Neue Rechnung",
+        "form": form,
+    })

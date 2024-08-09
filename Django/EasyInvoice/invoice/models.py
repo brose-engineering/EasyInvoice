@@ -1,41 +1,27 @@
 from django.db import models
 from customers.models import Customer
 from datetime import datetime
-
-
-class InvoiceID(models.CharField):
-    """
-    A custom CharField representing an invoice ID, which is a combination of the current date and a counter.
-    
-    Attributes:
-        max_length (int): The maximum length of the invoice ID string.
-        null (bool): Whether the field allows null values. In this case, it's set to False to ensure each invoice has a unique ID.
-        blank (bool): Whether the field allows empty strings. In this case, it's set to False to ensure each invoice has a valid ID.
-
-    Methods:
-        __init__(self, *args, **kwargs):
-            Initializes the InvoiceID field with a maximum length of 20 characters and sets the default value.
-        
-        get_default_value(self):
-            Returns the default value for the invoice ID, which is a combination of the current date and a counter.
-    """
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, max_length=20, null=False, blank=False)
-        self.default = self.get_default_value
-
-    def get_default_value(self):
-        now = datetime.now().strftime("%Y%m%d")
-        counter = models.IntegerField(default=0).get_default_value()
-        return f"{now}_{counter:04d}"
+from django.db.models import Max
 
 
 # Create your models here.
 class Invoice(models.Model):
+    invoice_id = models.CharField(max_length=20)
+
+    @classmethod
+    def get_next_invoice_id(cls):
+        now = datetime.now().strftime("%Y%m%d")
+        max_id = cls.objects.aggregate(Max('invoice_id'))['invoice_id__max']
+        
+        if max_id and str(max_id).startswith(now + '_'):
+            return f"{now}_{int(str(max_id)[-4:]) + 1:04d}"
+        else:
+            return f"{now}_0001"
     """
     The Invoice class defines a table in the database to store invoices.
     """
-    # A unique identifier for each invoice, serving as the primary key.
-    invoice_id = InvoiceID(primary_key=True)    
+    # A unique identifier for each invoice, using the classmethod above to generate it.
+    invoice_id = models.CharField(max_length=20, primary_key=True, default=lambda: Invoice.get_next_invoice_id())
     """
     This attribute uniquely identifies each invoice and is used 
     as the primary key for this model. It's an instance of InvoiceID, 

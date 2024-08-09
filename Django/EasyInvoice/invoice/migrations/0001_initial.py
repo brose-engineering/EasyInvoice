@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             name='Invoice',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('invoice_id', invoice.models.InvoiceID(default=invoice.models.InvoiceID.get_default_value, max_length=20)),
+                ('invoice_id', models.CharField(max_length=20)),
                 ('date', models.DateField()),
                 ('product', models.CharField(max_length=256)),
                 ('customer', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='customers.customer')),
